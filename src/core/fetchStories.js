@@ -2,11 +2,10 @@ import JSZipUtils from "jszip-utils";
 import JSZip from "jszip";
 import { parse } from "yaml";
 import { warn } from "./utils";
-import { useTranslation } from 'react-i18next'
+import i18n from '../constants/i18n'
 
 export const fetchStories = async (owner, languageCode) => {
-  const t = useTranslation()
-  console.log(t("loadingStories"));
+  console.log(i18n.t("loadingStories"));
   const latestRelease = await getLatestRelease(owner, languageCode);
   const latestVersion = await getLatestVersion(
     owner,

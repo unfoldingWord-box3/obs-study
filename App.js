@@ -9,6 +9,8 @@ import { pad } from "./src/core/utils";
 import FrameObs from "./src/components/FrameObs";
 import { useObsImage } from "./src/hooks/useObsImage";
 import FrameNav from "./src/components/FrameNav";
+import { I18nextProvider } from 'react-i18next'
+import i18n from './src/constants/i18n'
 
 function Test() {
   const { reference, goTo } = useObsNav();
@@ -48,12 +50,14 @@ function Test() {
 
 export default function App() {
   return (
-    <OBSContextProvider>
-      <View style={styles.container}>
-        <Test></Test>
-        <StatusBar style="auto" />
-      </View>
-    </OBSContextProvider>
+    <I18nextProvider i18n={ i18n }>
+      <OBSContextProvider>
+        <View style={styles.container}>
+          <Test></Test>
+          <StatusBar style="auto" />
+        </View>
+      </OBSContextProvider>
+    </I18nextProvider>
   );
 }
 

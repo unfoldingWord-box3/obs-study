@@ -1,16 +1,15 @@
-import { useTranslation } from 'react-i18next'
+import i18n from '../constants/i18n'
 
-export function pad(num) {
+export function pad (num) {
   return String(num).padStart(2, "0");
 }
 
-export function warn(message) {
+export function warnTranslate(message) {
   const debug = false;
-  if (debug) alert(message);
+  if (debug) alert(i18n.t(message));
 }
 
-export function warnTranslate(message) {
-  const t=useTranslation()
+export function warn (message) {
   const debug = false;
-  if (debug) alert(t(message));
+  if (debug) alert(message);
 }
