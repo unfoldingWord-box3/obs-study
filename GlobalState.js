@@ -1,6 +1,7 @@
 import React, { createContext, useReducer, useContext } from "react";
 import { pad } from "./src/core/utils";
 import { getStories } from "./src/core/getStories";
+import { useTranslate } from 'react-i18next';
 
 export const OBSContext = createContext();
 
@@ -35,6 +36,7 @@ function obtainLastFrame(obs, reference) {
 }
 
 const OBSReducer = (state, action) => {
+  const t = useTranslate()
   switch (action.type) {
     case "GO_NEXT":
       if (doesNextFrameExist(state.OBS, state.reference)) {
@@ -55,9 +57,9 @@ const OBSReducer = (state, action) => {
       }
     case "NAV_TO":
       const {story, frame} = action.payload;
-      if (!story) {console.error('No se envió un story'); return state;}
-      if (!state.OBS?.stories?.[pad(story)]) {console.error('No se encontró el story especificado'); return state;}
-      if (frame && (!state.OBS?.stories?.[pad(story)]?.frames[frame])){console.error('No se encontró el frame especificado'); return state;}
+      if (!story) {console.error(t('noStorySent')); return state;}
+      if (!state.OBS?.stories?.[pad(story)]) {console.error(t('storyNotFound')); return state;}
+      if (frame && (!state.OBS?.stories?.[pad(story)]?.frames[frame])){console.error(t('frameNotFound')); return state;}
       if (!frame){
       return {
         ...state,
@@ -136,7 +138,8 @@ export function useObs() {
 
   const { OBS: source } = OBSState;
   const setSrc = () => {
-    getStories("es-419_gl", "xsu").then((obs) => {
+    // getStories("es-419_gl", "xsu").then((obs) => { /
+    getStories("unfoldingWord", "en").then((obs) => {
       setOBState({ type: "SET_OBS", payload: obs });
     });
   };

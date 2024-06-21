@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { useEffect } from "react";
@@ -11,6 +12,7 @@ import FrameNav from "./src/components/FrameNav";
 
 function Test() {
   const { reference, goTo } = useObsNav();
+  const [ isNavigatorOpen, setIsNavigatorOpen] = useState(true)
   const image = useObsImage({ reference });
   const { source, setSrc } = useObs();
 
@@ -26,15 +28,20 @@ function Test() {
 
   return source ? (
     <View style={styles.storyContainer}>
-      <StoryNav
-        selectedStory={reference.story}
-        stories={Object.keys(source.stories).map(
-          (stringKey, key) => source.stories[pad(key + 1)].title
-        )}
+      {isNavigatorOpen 
+      ? (<StoryNav
+          selectedStory={reference.story}
+          stories={
+            Object.keys(source.stories).map(
+              (stringKey, key) => source.stories[pad(key + 1)].title
+            )
+          }
         onSelect={(selectedStory) => goTo(selectedStory)}
-      ></StoryNav>
-      <FrameObs text={getFrameTextFromRef(reference)} image={image}></FrameObs>
-      <FrameNav></FrameNav>
+        />
+      ) : (
+        <FrameObs text={getFrameTextFromRef(reference)} image={image}/>
+      )}
+      <FrameNav/>
     </View>
   ) : null;
 }
