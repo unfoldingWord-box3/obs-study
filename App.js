@@ -22,17 +22,12 @@ function Test() {
   const { source, setSrc } = useObs();
 
   const getFrameTextFromRef = (reference) => {
-    console.log(reference)
     const story = source.stories[pad(reference.story)];
-    console.log(story)
     const frame = story.frames[reference.frame - 1];
-    console.log(frame)
     return frame;
   };
 
   const handleSelect = (story,frame) => {
-    console.log(story)
-    console.log(frame)
     goTo(story,frame)
     setIsNavigatorOpen(false)
   };

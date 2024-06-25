@@ -1,16 +1,13 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
   View,
   ScrollView,
-  TouchableOpacity,
+  Pressable,
   Image,
   Text,
 } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome5';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import { FAB, Icon, List } from 'react-native-paper';
 import { rangeArray, pad } from '../core/utils'
 import { obsHierarchy, obsNbrPictures } from '../constants/obsHierarchy'
 import useBrowserData from '../hooks/useBrowserData'
@@ -224,7 +221,7 @@ export default function ObsNavigation(props) {
           {validIconList.map(
             ({ id, img, name }) => {
               return (
-                <TouchableOpacity
+                <Pressable
                   key={id}
                   onPress={(ev) => handleClick(ev,id,true)}
                 >
@@ -243,7 +240,7 @@ export default function ObsNavigation(props) {
                       </View>
                     </View>
                   </View>
-                </TouchableOpacity>
+                </Pressable>
               );
             },
           )}
