@@ -1,61 +1,61 @@
 export const obsHierarchy = [
   {
     title: "h01",
-    img: "000-01.png",
+    img: '../../assets/obs-images/000-01.png',
     beg: 1,
     count: 3
   },
   {
     title: "h02",
-    img: "00-01c.png",
+    img: '../../assets/obs-images/00-01c.png',
     beg: 4,
     count: 5
   },
   {
     title: "h03",
-    img: "00-02d.png",
+    img: '../../assets/obs-images/00-02d.png',
     beg: 9,
     count: 6
   },
   {
     title: "h04",
-    img: "00-03a.png",
+    img: '../../assets/obs-images/00-03a.png',
     beg: 15,
     count: 5
   },
   {
     title: "h05",
-    img: "000-06.png",
+    img: '../../assets/obs-images/000-06.png',
     beg: 20,
     count: 3
   },
   {
     title: "h06",
-    img: "42_Lk_03_03.png",
+    img: '../../assets/obs-images/42_Lk_03_03.png',
     beg: 23,
     count: 4
   },
   {
     title: "h07",
-    img: "42_Lk_08_01.png",
+    img: '../../assets/obs-images/42_Lk_08_01.png',
     beg: 27,
     count: 9
   },
   {
     title: "h08",
-    img: "000-07.png",
+    img: '../../assets/obs-images/000-07.png',
     beg: 36,
     count: 7
   },
   {
     title: "h09",
-    img: "00-08a.png",
+    img: '../../assets/obs-images/00-08a.png',
     beg: 43,
     count: 5
   },
   {
     title: "h10",
-    img: "66_Re_21_01.png",
+    img: '../../assets/obs-images/66_Re_21_01.png',
     beg: 48,
     count: 3
   }

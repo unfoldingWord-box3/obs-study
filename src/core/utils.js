@@ -1,7 +1,9 @@
 import i18n from '../constants/i18n'
 
-export function pad (num) {
-  return String(num).padStart(2, "0");
+export const rangeArray = (beg, end) => Array.from(Array(end+1-beg),(val,index)=>index+beg)
+
+export function pad(n) {
+  return ((n < 10) && (n >=0)) ? (`0${n}`) : `${n}`
 }
 
 export function warnTranslate(message) {

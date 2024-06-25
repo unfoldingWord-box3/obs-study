@@ -57,8 +57,8 @@ const OBSReducer = (state, action) => {
     case "NAV_TO":
       const {story, frame} = action.payload;
       if (!story) {console.error(i18n.t('noStorySent')); return state;}
-      if (!state.OBS?.stories?.[pad(story)]) {console.error(t('storyNotFound')); return state;}
-      if (frame && (!state.OBS?.stories?.[pad(story)]?.frames[frame])){console.error(t('frameNotFound')); return state;}
+      if (!state.OBS?.stories?.[pad(story)]) {console.error(i18n.t('storyNotFound')); return state;}
+      if (frame && (!state.OBS?.stories?.[pad(story)]?.frames[frame])){console.error(i18n.t('frameNotFound')); return state;}
       if (!frame){
       return {
         ...state,
@@ -137,7 +137,7 @@ export function useObs() {
 
   const { OBS: source } = OBSState;
   const setSrc = () => {
-    // getStories("es-419_gl", "xsu").then((obs) => { /
+    // getStories("es-419_gl", "xsu").then((obs) => {
     getStories("unfoldingWord", "en").then((obs) => {
       setOBState({ type: "SET_OBS", payload: obs });
     });

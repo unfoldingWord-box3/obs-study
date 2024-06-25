@@ -6,7 +6,7 @@ import {
 import * as FileSystem from "expo-file-system";
 import { compareVersions } from "compare-versions";
 import { warnTranslate } from "./utils";
-import { useTranslate } from 'react-i18next';
+import i18n from '../constants/i18n'
 
 export async function getStories(owner, languageCode) {
   if (!FileSystem.documentDirectory) {
@@ -67,10 +67,9 @@ async function getLocalStories(owner, languageCode) {
 }
 
 async function storeStories(owner, languageCode) {
-  const t = useTranslate()
   const stories = await fetchStories(owner, languageCode);
   if (!fetchStories)
-    throw new Error(t("noInternet"));
+    throw new Error(i18n.t("noInternet"));
   const directoryName = "obs-study";
   const filename = `${owner}_${languageCode}_obs.json`;
 

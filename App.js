@@ -4,13 +4,16 @@ import { StyleSheet, Text, View } from "react-native";
 import { useEffect } from "react";
 import { OBSContextProvider, useObsNav, useObs } from "./GlobalState";
 
-import { StoryNav } from "./src/components/StoryNav";
+import ObsNavigation from "./src/components/ObsNavigation";
 import { pad } from "./src/core/utils";
 import FrameObs from "./src/components/FrameObs";
 import { useObsImage } from "./src/hooks/useObsImage";
 import FrameNav from "./src/components/FrameNav";
+
 import { I18nextProvider } from 'react-i18next'
 import i18n from './src/constants/i18n'
+import { BrowserDataProvider } from "./src/context/browser-data-context"
+import { MediaPlayerProvider } from "./src/context/media-player-context"
 
 function Test() {
   const { reference, goTo } = useObsNav();
@@ -19,43 +22,62 @@ function Test() {
   const { source, setSrc } = useObs();
 
   const getFrameTextFromRef = (reference) => {
+    console.log(reference)
     const story = source.stories[pad(reference.story)];
+    console.log(story)
     const frame = story.frames[reference.frame - 1];
+    console.log(frame)
     return frame;
+  };
+
+  const handleSelect = (story,frame) => {
+    console.log(story)
+    console.log(frame)
+    goTo(story,frame)
+    setIsNavigatorOpen(false)
   };
 
   useEffect(() => {
     setSrc();
   }, []);
 
-  return source ? (
-    <View style={styles.storyContainer}>
-      {isNavigatorOpen 
-      ? (<StoryNav
-          selectedStory={reference.story}
-          stories={
-            Object.keys(source.stories).map(
-              (stringKey, key) => source.stories[pad(key + 1)].title
-            )
-          }
-        onSelect={(selectedStory) => goTo(selectedStory)}
-        />
-      ) : (
+  return (source && isNavigatorOpen) ? (
+      <ObsNavigation
+        selectedStory={reference.story}
+        stories={
+          Object.keys(source.stories).map(
+            (stringKey, key) => source.stories[pad(key + 1)].title
+          )
+        }
+        onSelect={handleSelect}
+        onExitNavigation={() => console.log("onExitNavigation")}
+        // onStartPlay={() => console.log("onExitNavigation")}
+      />
+    ) : source ? (
+      <View style={styles.storyContainer}>
+        <Text 
+          style={styles.subHeaderTitle}
+          onClick={()=>setIsNavigatorOpen(true)}
+        >
+          {"<"}
+        </Text>
         <FrameObs text={getFrameTextFromRef(reference)} image={image}/>
-      )}
-      <FrameNav/>
-    </View>
-  ) : null;
+        <FrameNav/>
+      </View>
+    ) : null
 }
 
 export default function App() {
   return (
     <I18nextProvider i18n={ i18n }>
       <OBSContextProvider>
-        <View style={styles.container}>
-          <Test></Test>
-          <StatusBar style="auto" />
-        </View>
+        <BrowserDataProvider>
+          <MediaPlayerProvider>
+              <Test
+              />
+              <StatusBar style="auto" />
+          </MediaPlayerProvider>
+        </BrowserDataProvider>
       </OBSContextProvider>
     </I18nextProvider>
   );
@@ -69,5 +91,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  subHeaderTitle: {
+    fontSize: 32,
+    textAlign: 'center',
+    fontWeight: '700',
+    color: '#1d1d1d',
   },
 });
